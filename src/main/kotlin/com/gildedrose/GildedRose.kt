@@ -1,57 +1,69 @@
 package com.gildedrose
 
-class GildedRose(var items: Array<Item>) {
-    
+class GildedRose(
+    val items: List<Item>
+) {
+    constructor(itemsArray: Array<Item>) : this(itemsArray.toList())
+
+    private fun Item.decrementSellIn() {
+        this.sellIn--
+    }
+
     fun updateQuality() {
-        for (i in items.indices) {
-            if (items[i].name != "Aged Brie" && items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-                if (items[i].quality > 0) {
-                    if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-                        items[i].quality--
+        items.forEach { item ->
+            // decrease quality of "normal" items by 1
+            if (item.name != "Aged Brie" && item.name != "Backstage passes to a TAFKAL80ETC concert") {
+                if (item.quality > 0) {
+                    if (item.name != "Sulfuras, Hand of Ragnaros") {
+                        item.quality--
                     }
                 }
             } else {
-                if (items[i].quality < 50) {
-                    items[i].quality++
+                // increase quality of aged brie and backstage passes
+                if (item.quality < 50) {
+                    item.quality++
 
-                    if (items[i].name == "Backstage passes to a TAFKAL80ETC concert") {
-                        if (items[i].sellIn < 11) {
-                            if (items[i].quality < 50) {
-                                items[i].quality++
+                    if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
+                        if (item.sellIn < 11) {
+                            if (item.quality < 50) {
+                                item.quality++
                             }
                         }
 
-                        if (items[i].sellIn < 6) {
-                            if (items[i].quality < 50) {
-                                items[i].quality++
+                        if (item.sellIn < 6) {
+                            if (item.quality < 50) {
+                                item.quality++
                             }
                         }
                     }
                 }
             }
 
-            if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-                items[i].sellIn--
+            // decrement sellin if it is not sulfuras
+            if (item.name != "Sulfuras, Hand of Ragnaros") {
+                item.decrementSellIn()
             }
 
-            if (items[i].sellIn < 0) {
-                if (items[i].name != "Aged Brie") {
-                    if (items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-                        if (items[i].quality > 0) {
-                            if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-                                items[i].quality--
+            if (item.sellIn < 0) {
+                if (item.name != "Aged Brie") {
+                    if (item.name != "Backstage passes to a TAFKAL80ETC concert") {
+                        if (item.quality > 0) {
+                            if (item.name != "Sulfuras, Hand of Ragnaros") {
+                                // decrease quality of "normal" items by 1 again, in total decreased quality by 2
+                                item.quality--
                             }
                         }
                     } else {
-                        items[i].quality = 0
+                        // backstage tickets loose their quality after the concert
+                        item.quality = 0
                     }
                 } else {
-                    if (items[i].quality < 50) {
-                        items[i].quality++
+                    // increase quality of aged brie and backstage passes again, in total 2, (or 3, or 4 for backstage passes)
+                    if (item.quality < 50) {
+                        item.quality++
                     }
                 }
             }
         }
     }
 }
-
