@@ -1,9 +1,6 @@
 package com.gildedrose
 
-class GildedRose(
-    val items: List<Item>
-) {
-    constructor(itemsArray: Array<Item>) : this(itemsArray.toList())
+class GildedRose(var items: Array<Item>) {
 
     private fun Item.decrementSellIn() {
         this.sellIn--
