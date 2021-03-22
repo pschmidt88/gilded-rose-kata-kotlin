@@ -3,10 +3,10 @@ package com.gildedrose
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-internal class GildedRoseTest {
+class GildedRoseTest {
 
     @Test
-    internal fun `it works with multiple items`() {
+    fun `it works with multiple items`() {
         val items = arrayOf(
             Item("+5 Dexterity Vest", 10, 20),
             Item("Elixir of the Mongoose", 5, 7),
@@ -26,7 +26,7 @@ internal class GildedRoseTest {
     }
 
     @Test
-    internal fun `it decreases sellIn and quality of a normal items correctly for each day`() {
+    fun `it decreases sellIn and quality of a normal items correctly for each day`() {
         val items = arrayOf(
             Item("+5 Dexterity Vest", 10, 20),
         )
@@ -47,7 +47,7 @@ internal class GildedRoseTest {
     }
 
     @Test
-    internal fun `it increases quality of 'Aged Brie' by one for every day passed`() {
+    fun `it increases quality of 'Aged Brie' by one for every day passed`() {
         val items = arrayOf(
             Item("Aged Brie", 10, 0),
         )
@@ -68,9 +68,9 @@ internal class GildedRoseTest {
     }
 
     @Test
-    internal fun `it doesn't decrease quality value of 'Sulfuras, Hand of Ragnaros'`() {
-        val items = arrayOf(
-            Item("Sulfuras, Hand of Ragnaros", 5, 80),
+    fun `it doesn't decrease quality value of 'Sulfuras, Hand of Ragnaros'`() {
+        val items: Array<Item> = arrayOf(
+            LegendaryItem("Sulfuras, Hand of Ragnaros", 5),
         )
 
         val app = GildedRose(items)
@@ -89,7 +89,7 @@ internal class GildedRoseTest {
     }
 
     @Test
-    internal fun `when the sell by date has passed, then quality degrades twice as fast for normal items`() {
+    fun `when the sell by date has passed, then quality degrades twice as fast for normal items`() {
         val items = arrayOf(
             Item("+5 Dexterity Vest", 0, 20),
         )
@@ -110,7 +110,7 @@ internal class GildedRoseTest {
     }
 
     @Test
-    internal fun `The Quality of an item is never negative`() {
+    fun `The Quality of an item is never negative`() {
         val items = arrayOf(
             Item("+5 Dexterity Vest", 2, 0),
         )
@@ -131,7 +131,7 @@ internal class GildedRoseTest {
     }
 
     @Test
-    internal fun `The Quality of an item is never more than 50`() {
+    fun `The Quality of an item is never more than 50`() {
         val items = arrayOf(
             Item("Aged Brie", 2, 49),
             Item("Aged Brie", -2, 40),
@@ -174,7 +174,7 @@ internal class GildedRoseTest {
 	Quality drops to 0 after the concert
      */
     @Test
-    internal fun `backstage passes increase in quality by one if the sell in is greater than 10 days`() {
+    fun `backstage passes increase in quality by one if the sell in is greater than 10 days`() {
         val items = arrayOf(
             Item("Backstage passes to a TAFKAL80ETC concert", 12, 5),
         )
@@ -189,7 +189,7 @@ internal class GildedRoseTest {
     }
 
     @Test
-    internal fun `backstage passes increase in quality by two if the sell in than 10 days or less`() {
+    fun `backstage passes increase in quality by two if the sell in than 10 days or less`() {
         val items = arrayOf(
             Item("Backstage passes to a TAFKAL80ETC concert", 10, 5),
         )
@@ -204,7 +204,7 @@ internal class GildedRoseTest {
     }
 
     @Test
-    internal fun `backstage passes increase in quality by 3 if the sell in than 10 days or less`() {
+    fun `backstage passes increase in quality by 3 if the sell in than 10 days or less`() {
         val items = arrayOf(
             Item("Backstage passes to a TAFKAL80ETC concert", 5, 5),
         )
@@ -219,7 +219,7 @@ internal class GildedRoseTest {
     }
 
     @Test
-    internal fun `backstage passes quality drop to zero if after the concert`() {
+    fun `backstage passes quality drop to zero if after the concert`() {
         val items = arrayOf(
             Item("Backstage passes to a TAFKAL80ETC concert", 0, 40),
         )
